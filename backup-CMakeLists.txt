@@ -1,0 +1,25 @@
+cmake_minimum_required(VERSION 2.8)
+project( papp )
+
+# raspistill/raspivid/raspiyuv
+
+SET(COMPILE_DEFINITIONS -Werror)
+
+#OPENCV
+find_package( OpenCV REQUIRED )
+
+
+
+include_directories(/opt/vc/include/host_applications/linux/libs/bcm_host/include)
+include_directories(/opt/vc/include/interface/vcos)
+include_directories(/opt/vc)
+include_directories(/opt/vc/include)
+include_directories(/opt/vc/include/interface/vcos/pthreads)
+include_directories(/opt/vc/include/interface/vmcs_host/linux)
+
+find_package (Threads)
+
+add_executable(papp  RaspiCamControl.c  RaspiCLI.c  RaspiPreview.c  RaspiCamCV.c pappRobot.cpp)
+
+target_link_libraries(papp /opt/vc/lib/libmmal_core.so /opt/vc/lib/libmmal_util.so /opt/vc/lib/libmmal_vc_client.so /opt/vc/lib/libvcos.so /opt/vc/lib/libbcm_host.so /usr/lib/arm-linux-gnueabihf/libpthread.so /usr/lib/arm-linux-gnueabihf/libm.so)
+
